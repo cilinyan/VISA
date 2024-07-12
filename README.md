@@ -46,7 +46,7 @@ LISA_ROOT
 
 #### Chat-UniVi's Dataset
 
-Follow [Chat-UniVi/Chat-UniVi-Instruct](https://huggingface.co/datasets/Chat-UniVi/Chat-UniVi-Instruct/tree/main) to prepare Chat-UniVi-Instruct datasets. The dataset folder should be stored in the `$LISA_ROOT` folder.
+Follow [Chat-UniVi/Chat-UniVi-Instruct](https://huggingface.co/datasets/Chat-UniVi/Chat-UniVi-Instruct/tree/main) to prepare Chat-UniVi-Instruct datasets. The dataset folder should be stored in the `$ChatUniVi_ROOT` folder.
 ```
 ChatUniVi_ROOT
 ├── Fine-tuning
