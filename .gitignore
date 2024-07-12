@@ -1,0 +1,10 @@
+**/__pycache__
+runs/
+models/
+datasets/
+datasets
+.vscode/
+core*
+vis_output/
+test_vis/
+openai
