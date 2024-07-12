@@ -8,3 +8,4 @@ core*
 vis_output/
 test_vis/
 openai
+.DS_Store
