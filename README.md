@@ -24,11 +24,11 @@ pip install flash-attn --no-build-isolation
 
 ## Training and Validation
 
-### Training Data Preparation
+### 1. Training Data Preparation
 
 Before training, please download the datasets, and then configure the path in [dataset_config.py](utils/dataset_config.py).
 
-#### LISA's Dataset
+#### (a) LISA's Dataset
 
 Follow [LISA](https://github.com/dvlab-research/LISA/tree/main) to prepare LISA's datasets. The dataset folder should be stored in the `$LISA_ROOT` folder.
 
@@ -44,7 +44,7 @@ LISA_ROOT
 └── vlpart
 ```
 
-#### Chat-UniVi's Dataset
+#### (b) Chat-UniVi's Dataset
 
 Follow [Chat-UniVi/Chat-UniVi-Instruct](https://huggingface.co/datasets/Chat-UniVi/Chat-UniVi-Instruct/tree/main) to prepare `Chat-UniVi-Instruct` datasets. The dataset folder should be stored in the `$ChatUniVi_ROOT` folder.
 ```
@@ -55,7 +55,7 @@ ChatUniVi_ROOT
 └── ScienceQA_tuning
 ```
 
-#### RVOS's Dataset
+#### (c) RVOS's Dataset
 
 1. Reasoning Video Segmentation Datasets: [ReVOS](https://github.com/cilinyan/ReVOS-api).
 2. Referring Video Segmentation Datasets: [Ref-Youtube-VOS](https://github.com/wjn922/ReferFormer/blob/main/docs/data.md), [Ref-DAVIS17](https://github.com/wjn922/ReferFormer/blob/main/docs/data.md), [MeViS](https://github.com/henghuiding/MeViS).
@@ -80,17 +80,17 @@ RVOS_ROOT
 └── mevis
 ```
 
-### Pre-trained weights
+### 2. Pre-trained weights
 
-#### Chat-UniVi
+#### (a) Chat-UniVi
 
 To train VISA-7B or 13B, you need to download Chat-UniVi weights from [Chat-UniVi-7B](https://huggingface.co/Chat-UniVi/Chat-UniVi) and [Chat-UniVi-13B](https://huggingface.co/Chat-UniVi/Chat-UniVi-13B).
 
-#### SAM
+#### (b) SAM
 
 Download SAM ViT-H pre-trained weights from the [link](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth).
 
-### Training VISA
+### 3. Training VISA
 
 ```shell
 # Training VISA-7B
@@ -106,7 +106,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
   --save_path /PATH/TO/VISA-7B/hf_model
 ```
 
-### Validation
+### 4. Validation
 
 1. VISA inference: `bash scripts/val_7b_video.sh ${EVAL_DATASET}`;
 2. Using [LLaMA-VID](./LLaMA-VID/) to generate target frame for each video;
