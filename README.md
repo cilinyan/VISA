@@ -111,7 +111,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 1. VISA inference: `bash scripts/val_7b_video.sh ${EVAL_DATASET}`;
 2. Using [LLaMA-VID](./LLaMA-VID/) to generate target frame for each video;
 3. Using [XMem](https://github.com/hkchengrex/XMem) for mask propagation;
-4. Evaluate ReVOS's performance: `cd [tools](./tools/) && python [eval_revos.py](./tools/eval_revos.py) ${PRED_DIR} [ARGS]`
+4. Evaluate ReVOS's performance: `cd tools && python eval_revos.py ${PRED_DIR} [ARGS]`
 
 <!-- 
 ```shell 
