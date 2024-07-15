@@ -22,7 +22,7 @@ pip install -r requirements.txt
 pip install flash-attn --no-build-isolation
 ```
 
-## Training
+## Training and Validation
 
 ### Training Data Preparation
 
@@ -90,7 +90,7 @@ To train VISA-7B or 13B, you need to download Chat-UniVi weights from [Chat-UniV
 
 Download SAM ViT-H pre-trained weights from the [link](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth).
 
-### Training
+### Training VISA
 
 ```shell
 # Training VISA-7B
@@ -106,8 +106,14 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
   --save_path /PATH/TO/VISA-7B/hf_model
 ```
 
-## Validation
+### Validation
 
+1. VISA inference: `bash scripts/val_7b_video.sh ${EVAL_DATASET}`;
+2. Using [LLaMA-VID](./LLaMA-VID/) to generate target frame for each video;
+3. Using [XMem](https://github.com/hkchengrex/XMem) for mask propagation;
+4. Evaluate ReVOS's performance: `cd [tools](./tools/) && python [eval_revos.py](./tools/eval_revos.py) ${PRED_DIR} [ARGS]`
+
+<!-- 
 ```shell 
 # Inference
 bash scripts/val_7b_video.sh ${EVAL_DATASET}
@@ -115,11 +121,12 @@ bash scripts/val_7b_video.sh ${EVAL_DATASET}
 cd tools && python eval_revos.py ${PRED_DIR} [ARGS]
 ```
 
-## Using [LLaMA-VID](./LLaMA-VID/) to Get Target Frame
+### Using [LLaMA-VID](./LLaMA-VID/) to Get Target Frame
 
 see [LLaMA-VID](./LLaMA-VID/).
 
-## Using [XMem](https://github.com/hkchengrex/XMem) for Mask Propagation
+### Using [XMem](https://github.com/hkchengrex/XMem) for Mask Propagation 
+-->
 
 ## Cite
 
