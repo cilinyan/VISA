@@ -17,10 +17,7 @@ from typing import Tuple, List
 from collections import defaultdict
 from termcolor import colored
 
-_ports = json.load(open('port.json', 'r'))
 _PORTS = mp.Queue()
-for port in _ports:
-    _PORTS.put(port)
 
 def call(video_dir: str, question: str, ):
     port = _PORTS.get()
@@ -60,14 +57,18 @@ _ELEM_PERCENT_LIST = [
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--video_root', type=str, default="/mnt/nlp-ali/usr/yancilin/clyan-data/other-datasets/eccv_dataset/export0206_/valid/JPEGImages/")
-    parser.add_argument('--data_json_file', type=str, default="/mnt/nlp-ali/usr/yancilin/clyan-data/other-datasets/eccv_dataset/export0206_/valid/meta_expressions.json")
+    parser.add_argument('--video_root', type=str, )
+    parser.add_argument('--data_json_file', type=str, )
+    parser.add_argument('--output_json_file', type=str, default=None)
+    parser.add_argument('--port', type=int, default=[8000, ], nargs='+')
     parser.add_argument('--repeat_num', type=int, default=10)
     args = parser.parse_args()
+    for port in args.port:
+        _PORTS.put(port)    
 
     video_root = args.video_root
     data_json = json.load(open(args.data_json_file, 'r'))
-    out_json_file = args.data_json_file.replace('.json', '_llamavid_mp.json')
+    out_json_file = args.data_json_file.replace('.json', '_llamavid_mp.json') if args.output_json_file is None else args.output_json_file
 
     params_list = []
     for video_name in data_json['videos'].keys():

@@ -1,0 +1,3 @@
+[submodule "LLaMA-VID"]
+	path = LLaMA-VID
+	url = https://github.com/dvlab-research/LLaMA-VID.git

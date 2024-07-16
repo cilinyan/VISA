@@ -1,4 +1,6 @@
-from typing import Any
+import sys
+sys.path.insert(0, '../LLaMA-VID')
+
 import cv2
 import os
 import os.path as osp
@@ -6,9 +8,13 @@ import math
 import json
 import torch
 import pickle
+import json
+import argparse
 import argparse
 import numpy as np
 import whisper
+from typing import Any
+from flask import Flask, request
 from decord import VideoReader, cpu
 from transformers import CLIPVisionModel, CLIPImageProcessor
 from llamavid.model.multimodal_encoder.eva_vit import EVAVisionTowerLavis
@@ -100,7 +106,7 @@ class LLaMAVIDGenerator:
 
         replace_llama_attn_with_flash_attn(inference=True)
         model_name = get_model_name_from_path(model_path)
-        self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(model_path, model_base, model_name, load_8bit, load_4bit, device = self.device, device_map = None)
+        self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(model_path, model_base, model_name, load_8bit, load_4bit, device = self.device, device_map = {})
         self.model.eval()
         self.model = self.model.to(self.device)
 
@@ -187,34 +193,47 @@ class Inferencer:
         video_info = self.video_feature_extractor(video_dir)
         return self.llama_vid_generator(video_info, question)
 
+class InferenceServer(Inferencer):
+
+    def __init__(self, **kwargs):
+        port = kwargs.pop('port')
+        super().__init__(**kwargs)
+
+        server = Flask(__name__)
+        server.route('/post', methods=['POST'])(self.post)
+        server.run(host="0.0.0.0", port=port, threaded=False)
+
+    def post(self):
+        if request.method == "POST":
+            video_dir = request.json.get('video_dir')
+            question  = request.json.get('question')
+            result = self(video_dir, question)
+            return json.dumps(result)
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Extract CLIP feature and subtitles for a video")
     # CLIP
-    parser.add_argument("--video_dir",        required=True, help="Path to read the videos from.")
     parser.add_argument("--clip_infer_batch", required=False, type=int, default=48, help="Number of frames/images to perform batch inference.")
-    parser.add_argument("--vision_tower",     required=False, default='/mnt/nlp-ali/usr/yancilin/clyan-data/checkpoints/eva/eva_vit_g.pth', type=str, help="Path to EVA vision tower.")
-    parser.add_argument("--image_processor",  required=False, default='/mnt/nlp-ali/usr/yancilin/clyan-data/checkpoints/openai/clip-vit-large-patch14', type=str, help="Path to CLIP image processor.")
+    parser.add_argument("--vision_tower",     required=False, default='model_zoo/LAVIS/eva_vit_g.pth', type=str, help="Path to EVA vision tower.")
+    parser.add_argument("--image_processor",  required=False, default='/mnt/public02/usr/yancilin/clyan_data/weights/openai/clip-vit-large-patch14', type=str, help="Path to CLIP image processor.")
     # LLaMA-VID
-    parser.add_argument("--model-path",  type=str, default="/mnt/nlp-ali/usr/yancilin/clyan-data/checkpoints/llama-vid/YanweiLi/llama-vid-13b-full-224-video-fps-1")
+    parser.add_argument("--model-path",  type=str, default="/mnt/public02/usr/yancilin/clyan_data/weights/llama-vid/YanweiLi/llama-vid-13b-full-224-video-fps-1")
     parser.add_argument("--model-base",  type=str, default=None)
     parser.add_argument("--video-token", type=int, default=2)
-    parser.add_argument("--question",    type=str, required=True)
+    parser.add_argument("--gpu-id",      type=int, default=0)
+    parser.add_argument("--port",        type=int, default=8000)
     parser.add_argument("--conv-mode",   type=str, default='vicuna_v1')
-    parser.add_argument("--load-8bit", action="store_true")
-    parser.add_argument("--load-4bit", action="store_true")
+    parser.add_argument("--load-8bit",   action="store_true")
+    parser.add_argument("--load-4bit",   action="store_true")
     args = parser.parse_args()
     return args
-
-"""
-python run_demo.py \
-    --video_dir /mnt/nlp-ali/usr/yancilin/clyan-data/other-datasets/eccv_dataset/export0126/JPEGImages/LV-VIS/train/01020 \
-    --question "If I want to identify the car closest to the camera at the beginning of the movie, I should focus on those few frames of the movie."
-"""
 
 def main():
     args = parse_args()
     print(args)
-    inferencer = Inferencer(
+    inferencer = InferenceServer(
+        port             = args.port,
+        gpu_id           = args.gpu_id,
         vision_tower     = args.vision_tower,
         image_processor  = args.image_processor,
         clip_infer_batch = args.clip_infer_batch,
@@ -225,7 +244,6 @@ def main():
         load_4bit        = args.load_4bit,
         conv_mode        = args.conv_mode,
     )
-    result = inferencer(args.video_dir, args.question)
 
 if __name__ == "__main__":
     main()

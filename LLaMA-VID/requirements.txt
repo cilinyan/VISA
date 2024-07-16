@@ -1,4 +1,0 @@
-whisper
-decord
-timm
-llava
