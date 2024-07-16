@@ -1,6 +1,6 @@
 [submodule "LLaMA-VID"]
 	path = LLaMA-VID
-	url = https://github.com/dvlab-research/LLaMA-VID.git
+	url = git@github.com:dvlab-research/LLaMA-VID.git
 [submodule "ReVOS-api"]
 	path = ReVOS-api
 	url = git@github.com:cilinyan/ReVOS-api.git
