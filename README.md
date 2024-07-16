@@ -122,8 +122,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
       ```
    - Using the API for inference
       ```shell
-      cd ${LLAMA_VID_ROOT} 
-      python http_client_mp.py \
+      python utils_llamavid/llamavid_client.py \
           --video_root /PATH/TO/ReVOS/JPEGImages \
           --data_json_file /PATH/TO/ReVOS/meta_expressions_valid_.json
       ```
