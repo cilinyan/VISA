@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, '../LLaMA-VID')
+sys.path.insert(0, './LLaMA-VID')
 
 import cv2
 import os
@@ -210,14 +210,21 @@ class InferenceServer(Inferencer):
             result = self(video_dir, question)
             return json.dumps(result)
 
+"""
+python utils_llamavid/llamavid_server.py \
+    --vision_tower /mnt/public02/usr/yancilin/llama-vid-2/model_zoo/LAVIS/eva_vit_g.pth \
+    --image_processor /mnt/public02/usr/yancilin/clyan_data/weights/openai/clip-vit-large-patch14 \
+    --model-path /mnt/public02/usr/yancilin/clyan_data/weights/llama-vid/YanweiLi/llama-vid-13b-full-224-video-fps-1
+"""
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Extract CLIP feature and subtitles for a video")
     # CLIP
     parser.add_argument("--clip_infer_batch", required=False, type=int, default=48, help="Number of frames/images to perform batch inference.")
-    parser.add_argument("--vision_tower",     required=False, default='model_zoo/LAVIS/eva_vit_g.pth', type=str, help="Path to EVA vision tower.")
-    parser.add_argument("--image_processor",  required=False, default='/mnt/public02/usr/yancilin/clyan_data/weights/openai/clip-vit-large-patch14', type=str, help="Path to CLIP image processor.")
+    parser.add_argument("--vision_tower",     required=True, type=str, help="Path to EVA vision tower.")
+    parser.add_argument("--image_processor",  required=True, type=str, help="Path to CLIP image processor.")
     # LLaMA-VID
-    parser.add_argument("--model-path",  type=str, default="/mnt/public02/usr/yancilin/clyan_data/weights/llama-vid/YanweiLi/llama-vid-13b-full-224-video-fps-1")
+    parser.add_argument("--model-path",  type=str, required=True, )
     parser.add_argument("--model-base",  type=str, default=None)
     parser.add_argument("--video-token", type=int, default=2)
     parser.add_argument("--gpu-id",      type=int, default=0)
