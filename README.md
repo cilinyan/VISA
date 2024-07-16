@@ -108,12 +108,12 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 
 ### 4. Validation
 
-1. Using `VISA` to generate predicted mask of each video; 
+1. Using `VISA` to generate predicted mask of each video
     ```shell
     bash scripts/val_7b_video.sh ${EVAL_DATASET}
     ```
-2. Using [LLaMA-VID](./LLaMA-VID/) to generate target frame for each video;
-   - Run http_server_mp.py to build the API server for LLaMA-VID.
+2. Using [LLaMA-VID](./LLaMA-VID/) to generate target frame for each video
+   - Run http_server_mp.py to build the API server for LLaMA-VID
       ```shell
       python utils_llamavid/llamavid_server.py \
           --vision_tower /PATH/TO/eva_vit_g.pth \
@@ -127,27 +127,12 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
           --video_root /PATH/TO/ReVOS/JPEGImages \
           --data_json_file /PATH/TO/ReVOS/meta_expressions_valid_.json
       ```
-3. Using [XMem](https://github.com/hkchengrex/XMem) for mask propagation;
-4. Evaluate ReVOS's performance. 
+3. Using [XMem](https://github.com/hkchengrex/XMem) for mask propagation
+4. Evaluate ReVOS's performance
     ```shell
     cd tools
     python eval_revos.py ${PRED_DIR} [ARGS]
     ```
-
-<!-- 
-```shell 
-# Inference
-bash scripts/val_7b_video.sh ${EVAL_DATASET}
-# Evaluate ReVOS's performance
-cd tools && python eval_revos.py ${PRED_DIR} [ARGS]
-```
-
-### Using [LLaMA-VID](./LLaMA-VID/) to Get Target Frame
-
-see [LLaMA-VID](./LLaMA-VID/).
-
-### Using [XMem](https://github.com/hkchengrex/XMem) for Mask Propagation 
--->
 
 ## Cite
 
