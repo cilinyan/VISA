@@ -116,7 +116,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
     ```shell
     bash scripts/val_7b_video.sh ${EVAL_DATASET}
     ```
-2. Using [LLaMA-VID](./LLaMA-VID/) to generate target frame for each video
+2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video
    - Run http_server_mp.py to build the API server for LLaMA-VID
       ```shell
       python utils_llamavid/llamavid_server.py \
