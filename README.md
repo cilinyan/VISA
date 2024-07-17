@@ -1,9 +1,10 @@
 # VISA: Reasoning Video Object Segmentation via Large Language Model
 
-<font size=7><div align='center' >
+<div align='center' >
 [![GitHub stars](https://badgen.net/github/stars/cilinyan/VISA)](https://github.com/cilinyan/VISA)
-**[ECCV Paper](xx)** | **[arXiv](http://arxiv.org/abs/2407.11325)** | **[ReVOS Dataset](https://github.com/cilinyan/ReVOS-api)** | [**Training**](#training)
-</div></font>
+[![arXiv](https://img.shields.io/badge/arXiv-2407.11325-972B24)](http://arxiv.org/abs/2407.11325)
+[![Static Badge](https://img.shields.io/badge/dataset-ReVOS-blue?style=plastic)](https://github.com/cilinyan/ReVOS-api)
+</div>
 
 <div align=center>
 <img src="assert/architecture.png" style="width:100%;">
