@@ -1,6 +1,8 @@
 # VISA: Reasoning Video Object Segmentation via Large Language Model
 
-**[ECCV Paper](xx)** | **[arXiv](https://arxiv.org/abs/xxxx.xxxxx)** | **[ReVOS Dataset](https://github.com/cilinyan/ReVOS-api)** | [**Training**](#training)
+<font size=7><div align='center' >
+**[ECCV Paper](xx)** | **[arXiv](http://arxiv.org/abs/2407.11325)** | **[ReVOS Dataset](https://github.com/cilinyan/ReVOS-api)** | [**Training**](#training)
+</div></font>
 
 <div align=center>
 <img src="assert/architecture.png" style="width:100%;">
@@ -138,7 +140,12 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 If you find this project useful in your research, please consider citing:
 
 ```
-...
+@article{yan2024visa,
+      title={VISA: Reasoning Video Object Segmentation via Large Language Models}, 
+      author={Yan, Cilin and Wang, Haochen and Yan, Shilin and Jiang, Xiaolong and Hu, Yao and Kang, Guoliang and Gavves, Efstratios},
+      journal={arXiv preprint arXiv:2407.11325},
+      year={2024}
+}
 ```
 
 ## Acknowledgement
