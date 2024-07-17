@@ -3,6 +3,7 @@
 <font size=7><div align='center' >
 [![GitHub stars](https://badgen.net/github/stars/cilinyan/VISA)](https://github.com/cilinyan/VISA)
 [![GitHub stars](https://badgen.net/github/stars/cilinyan/VISA)](https://github.com/cilinyan/VISA)
+[![arXiv](https://img.shields.io/badge/arXiv-2407.11325-972B24)](http://arxiv.org/abs/2407.11325)
 </div></font>
 
 <div align=center>
