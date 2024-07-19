@@ -73,7 +73,7 @@ def eval_queue(q, rank, out_dict, visa_pred_path):
 
 """
 cd tools
-python eval_revos \
+python eval_revos.py \
     /mnt/public03/dataset/ovis/rgvos/visa7b/val_7b/revos_valid/revos_valid_XMem_final/Annotations \
     --visa_exp_path /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/meta_expressions_valid_.json \
     --visa_mask_path /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/mask_dict.json \

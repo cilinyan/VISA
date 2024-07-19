@@ -140,7 +140,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
           --data_json_file /PATH/TO/ReVOS/meta_expressions_valid_.json
       ```
 3. Using [./XMem/tracking.py](./XMem/tracking.py) for mask propagation [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/XMem/tracking.py#L103-L110)
-4. Evaluate ReVOS's performance [`running demo`](https://github.com/cilinyan/VISA/blob/66f85130cbb7aab9d5e8e7067ab3c0bcfab2f555/tools/eval_revos.py#L74-L81)
+4. Evaluate ReVOS's performance [`running demo`](https://github.com/cilinyan/VISA/blob/main/tools/eval_revos.py#L74-L81)
     ```shell
     cd tools
     python eval_revos.py /PATH/TO/FINAL_ANNOTATION [ARGS]
