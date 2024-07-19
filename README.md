@@ -148,9 +148,13 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 
 <details open>
 <summary> <strong>📑 Todo list</strong> </summary>
+  
 - [x] Release code with `Text-guided Frame Sampler`'s Local Sampling
+
 - [ ] Release VISA model weights
+
 - [ ] Release code with `Text-guided Frame Sampler`'s Global-Local Sampling
+
 </details>
 
 ## ⭐ Cite
