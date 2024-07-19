@@ -134,16 +134,16 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
           --image_processor /PATH/TO/openai/clip-vit-large-patch14 \
           --model-path /PATH/TO/YanweiLi/llama-vid-13b-full-224-video-fps-1
       ```
-      One running examples can be found at [this](xxx).
+      One running examples can be found at [this](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220).
    - Using the API for inference
       ```shell
       python utils_llamavid/llamavid_client.py \
           --video_root /PATH/TO/ReVOS/JPEGImages \
           --data_json_file /PATH/TO/ReVOS/meta_expressions_valid_.json
       ```
-      One running examples can be found at [this](xxx).
+      One running examples can be found at [this](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63).
 3. Using [./XMem/tracking.py](./XMem/tracking.py) for mask propagation.
-   One running examples can be found at [this](xxx).
+   One running examples can be found at [this](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/XMem/tracking.py#L103-L110).
    
 4. Evaluate ReVOS's performance
     ```shell

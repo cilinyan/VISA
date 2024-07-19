@@ -71,6 +71,15 @@ def eval_queue(q, rank, out_dict, visa_pred_path):
             print(colored(f'error: {exp_name}, {traceback.format_exc()}', 'red'))
             out_dict[exp_name] = [0.0, 0.0, 0.0, 0.0, ]
 
+"""
+cd tools
+python eval_revos \
+    /mnt/public03/dataset/ovis/rgvos/visa7b/val_7b/revos_valid/revos_valid_XMem_final/Annotations \
+    --visa_exp_path /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/meta_expressions_valid_.json \
+    --visa_mask_path /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/mask_dict.json \
+    --visa_foreground_mask_path /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/mask_dict_foreground.json
+"""
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("visa_pred_path", type=str, )
