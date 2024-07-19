@@ -9,6 +9,8 @@ It further depends on modules.py which gives more detailed implementations of su
 import torch
 import torch.nn as nn
 
+from loguru import logger
+
 from model.aggregate import aggregate
 from model.modules import *
 from model.memory_util import *
@@ -131,6 +133,7 @@ class XMem(nn.Module):
         else:
             raise NotImplementedError
 
+    @logger.catch()
     def init_hyperparameters(self, config, model_path=None, map_location=None):
         """
         Init three hyperparameters: key_dim, value_dim, and hidden_dim
@@ -181,6 +184,7 @@ class XMem(nn.Module):
 
         return model_weights
 
+    @logger.catch()
     def load_weights(self, src_dict, init_as_zero_if_needed=False):
         # Maps SO weight (without other_mask) to MO weight (with other_mask)
         for k in list(src_dict.keys()):

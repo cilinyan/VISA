@@ -8,22 +8,22 @@ import math
 import json
 import torch
 import pickle
-import json
 import argparse
-import argparse
+import warnings
 import numpy as np
 import whisper
 from typing import Any
 from flask import Flask, request
 from decord import VideoReader, cpu
-from transformers import CLIPVisionModel, CLIPImageProcessor
+from transformers import CLIPVisionModel, CLIPImageProcessor, AutoTokenizer, AutoModelForCausalLM, AutoConfig, BitsAndBytesConfig
 from llamavid.model.multimodal_encoder.eva_vit import EVAVisionTowerLavis
-from llamavid.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+from llamavid.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, DEFAULT_IMAGE_PATCH_TOKEN
 from llamavid.conversation import conv_templates, SeparatorStyle
 from llamavid.model.builder import load_pretrained_model
 from llamavid.train.llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
 from llava.utils import disable_torch_init
 from llava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
+from llamavid.model import *
 
 from importlib.util import find_spec
 if find_spec("gpustat") is None: os.system("pip install gpustat")
@@ -88,27 +88,29 @@ class LLaMAVIDGenerator:
 
     def __init__(
         self, 
-        model_path : str,
-        gpu_id     : int,
-        video_token: int  = 2,
-        model_base : str  = None,
-        load_8bit  : bool = False,
-        load_4bit  : bool = False,
-        conv_mode  : str  = 'vicuna_v1',
+        model_path  : str,
+        gpu_id      : int,
+        video_token : int  = 2,
+        model_base  : str  = None,
+        load_8bit   : bool = False,
+        load_4bit   : bool = False,
+        conv_mode   : str  = 'vicuna_v1',
+        vision_tower: str  = None,
     ):
-        gpu_list = [_.id for _ in GPUtil.getGPUs()]
-        assert gpu_id in gpu_list, f'gpu_id {gpu_id} not in {gpu_list}'
-        torch.cuda.set_device(gpu_id)
-        self.device = torch.device(f'cuda:{gpu_id}')
+        # gpu_list = [_.id for _ in GPUtil.getGPUs()]
+        # assert gpu_id in gpu_list, f'gpu_id {gpu_id} not in {gpu_list}'
+        # torch.cuda.set_device(gpu_id)
+        # self.device = torch.device(f'cuda:{gpu_id}')
 
         self.conv_mode   = conv_mode
         self.video_token = video_token
 
         replace_llama_attn_with_flash_attn(inference=True)
         model_name = get_model_name_from_path(model_path)
-        self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(model_path, model_base, model_name, load_8bit, load_4bit, device = self.device, device_map = {})
+        # self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(model_path, model_base, model_name, load_8bit, load_4bit, device = self.device, device_map = {})
+        self.tokenizer, self.model, self.image_processor, self.context_len = load_pretrained_model(model_path, model_base, model_name, load_8bit, load_4bit, )
         self.model.eval()
-        self.model = self.model.to(self.device)
+        # self.model = self.model.to(self.device)
 
 
     def __call__(
@@ -137,7 +139,7 @@ class LLaMAVIDGenerator:
         conv.append_message(conv.roles[1], None)
         prompt = conv.get_prompt()
 
-        input_ids = tokenizer_image_token(prompt, self.tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).to(self.device)
+        input_ids = tokenizer_image_token(prompt, self.tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).cuda()
         print('> Input token num:', len(input_ids[0]))
 
         stop_str = conv.sep if conv.sep_style != SeparatorStyle.TWO else conv.sep2
@@ -187,7 +189,7 @@ class Inferencer:
         conv_mode       : str = 'vicuna_v1',
     ):
         self.video_feature_extractor = VideoFeatureExtractor(vision_tower, image_processor, clip_infer_batch, gpu_id)
-        self.llama_vid_generator = LLaMAVIDGenerator(model_path, gpu_id, video_token, model_base, load_8bit, load_4bit, conv_mode)
+        self.llama_vid_generator = LLaMAVIDGenerator(model_path, gpu_id, video_token, model_base, load_8bit, load_4bit, conv_mode, vision_tower)
     
     def __call__(self, video_dir: str, question: str):
         video_info = self.video_feature_extractor(video_dir)
@@ -238,6 +240,13 @@ def parse_args():
 def main():
     args = parse_args()
     print(args)
+    # 修改 YanweiLi/llama-vid-13b-full-224-video-fps-1 中 mm_vision_tower 的值
+    cfg_path = osp.join(args.model_path, 'config.json')
+    cfg = json.load(open(cfg_path, 'r'))
+    cfg['mm_vision_tower'] = args.vision_tower
+    cfg['image_processor'] = './LLaMA-VID/llamavid/processor/clip-patch14-224'
+    json.dump(cfg, open(cfg_path, 'w'), indent=4)
+
     inferencer = InferenceServer(
         port             = args.port,
         gpu_id           = args.gpu_id,

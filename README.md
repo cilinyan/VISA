@@ -112,10 +112,20 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 
 ### 4. Validation
 
-1. Using `VISA` to generate predicted mask of each video
+1. Using `VISA` to generate predicted mask of each video.
     ```shell
-    bash scripts/val_7b_video.sh ${EVAL_DATASET}
+    deepspeed --master_port=24999 train_ds.py \
+      --version="/PATH/TO/VISA-7B/hf_model" \
+      --vision_pretrained="/PATH/TO/sam_vit_h_4b8939.pth" \
+      --log_base_dir="/PATH/TO/LOG_BASE_DIR" \
+      --exp_name="val_7b" \
+      --balance_sample \
+      --dataset="reason_seg" \
+      --sample_rates="13" \
+      --val_dataset "revos_valid" \
+      --eval_only 
     ```
+    One running examples can be found at [this](./scripts/val_7b_video.sh).
 2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video
    - Run http_server_mp.py to build the API server for LLaMA-VID
       ```shell
@@ -124,18 +134,23 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
           --image_processor /PATH/TO/openai/clip-vit-large-patch14 \
           --model-path /PATH/TO/YanweiLi/llama-vid-13b-full-224-video-fps-1
       ```
+      One running examples can be found at [this](xxx).
    - Using the API for inference
       ```shell
       python utils_llamavid/llamavid_client.py \
           --video_root /PATH/TO/ReVOS/JPEGImages \
           --data_json_file /PATH/TO/ReVOS/meta_expressions_valid_.json
       ```
-3. Using [XMem](https://github.com/hkchengrex/XMem) for mask propagation
+      One running examples can be found at [this](xxx).
+3. Using [./XMem/tracking.py](./XMem/tracking.py) for mask propagation.
+   One running examples can be found at [this](xxx).
+   
 4. Evaluate ReVOS's performance
     ```shell
     cd tools
-    python eval_revos.py ${PRED_DIR} [ARGS]
+    python eval_revos.py /PATH/TO/FINAL_ANNOTATION [ARGS]
     ```
+    One running examples can be found at [this](xxx).
 
 ## Cite
 
@@ -143,10 +158,10 @@ If you find this project useful in your research, please consider citing:
 
 ```
 @article{yan2024visa,
-      title={VISA: Reasoning Video Object Segmentation via Large Language Models}, 
-      author={Yan, Cilin and Wang, Haochen and Yan, Shilin and Jiang, Xiaolong and Hu, Yao and Kang, Guoliang and Xie, Weidi and Gavves, Efstratios},
-      journal={arXiv preprint arXiv:2407.11325},
-      year={2024}
+  title={VISA: Reasoning Video Object Segmentation via Large Language Models},
+  author={Yan, Cilin and Wang, Haochen and Yan, Shilin and Jiang, Xiaolong and Hu, Yao and Kang, Guoliang and Xie, Weidi and Gavves, Efstratios},
+  journal={arXiv preprint arXiv:2407.11325},
+  year={2024}
 }
 ```
 

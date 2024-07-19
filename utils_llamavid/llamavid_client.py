@@ -55,6 +55,13 @@ _ELEM_PERCENT_LIST = [
     ("60%", 0.6), ("70%", 0.7), ("80%", 0.8), ("90%", 0.9), ("100%", 1.0), ("0%", 0.0), 
 ]
 
+"""
+python utils_llamavid/llamavid_client.py \
+    --video_root /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/JPEGImages \
+    --data_json_file /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/meta_expressions_valid_.json \
+    --output_json_file /mnt/public02/usr/yancilin/clyan_data/other-datasets/ReVOS/meta_expressions_valid__llamavid.json
+"""
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--video_root', type=str, )
@@ -68,7 +75,7 @@ def main():
 
     video_root = args.video_root
     data_json = json.load(open(args.data_json_file, 'r'))
-    out_json_file = args.data_json_file.replace('.json', '_llamavid_mp.json') if args.output_json_file is None else args.output_json_file
+    out_json_file = args.data_json_file.replace('.json', '_llamavid.json') if args.output_json_file is None else args.output_json_file
 
     params_list = []
     for video_name in data_json['videos'].keys():
