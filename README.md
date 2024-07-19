@@ -125,7 +125,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
       --val_dataset "revos_valid" \
       --eval_only 
     ```
-2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video
+2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video (You can directly download the results of our run from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:u:/g/personal/yancl9918_mails_jlu_edu_cn/ETmoJF2i8ZZBsgIwdELiL8gBfptZZoPWjx6Y0eH6Myr3sw?e=mTt6rO) or [BaiduPan](https://pan.baidu.com/s/1YWs6NLPvANfhgUBHKQwnBg?pwd=visa).)
    - Run http_server_mp.py to build the API server for LLaMA-VID [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
       ```shell
       python utils_llamavid/llamavid_server.py \
