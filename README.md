@@ -112,7 +112,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 
 ### 4. Validation
 
-1. Using `VISA` to generate predicted mask of each video.
+1. Using `VISA` to generate predicted mask of each video [`running demo`](./scripts/val_7b_video.sh)
     ```shell
     deepspeed --master_port=24999 train_ds.py \
       --version="/PATH/TO/VISA-7B/hf_model" \
@@ -125,32 +125,27 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
       --val_dataset "revos_valid" \
       --eval_only 
     ```
-    One running examples can be found at [this](./scripts/val_7b_video.sh).
 2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video
-   - Run http_server_mp.py to build the API server for LLaMA-VID
+   - Run http_server_mp.py to build the API server for LLaMA-VID [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
       ```shell
       python utils_llamavid/llamavid_server.py \
           --vision_tower /PATH/TO/eva_vit_g.pth \
           --image_processor /PATH/TO/openai/clip-vit-large-patch14 \
           --model-path /PATH/TO/YanweiLi/llama-vid-13b-full-224-video-fps-1
       ```
-      One running examples can be found at [this](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220).
-   - Using the API for inference
+   - Using the API for inference [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63)
       ```shell
       python utils_llamavid/llamavid_client.py \
           --video_root /PATH/TO/ReVOS/JPEGImages \
           --data_json_file /PATH/TO/ReVOS/meta_expressions_valid_.json
       ```
-      One running examples can be found at [this](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63).
-3. Using [./XMem/tracking.py](./XMem/tracking.py) for mask propagation.
-   One running examples can be found at [this](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/XMem/tracking.py#L103-L110).
-   
-4. Evaluate ReVOS's performance
+3. Using [./XMem/tracking.py](./XMem/tracking.py) for mask propagation [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/XMem/tracking.py#L103-L110)
+4. Evaluate ReVOS's performance [`running demo`](https://github.com/cilinyan/VISA/blob/66f85130cbb7aab9d5e8e7067ab3c0bcfab2f555/tools/eval_revos.py#L74-L81)
     ```shell
     cd tools
     python eval_revos.py /PATH/TO/FINAL_ANNOTATION [ARGS]
     ```
-    One running examples can be found at [this](xxx).
+    
 
 ## Cite
 
@@ -166,4 +161,5 @@ If you find this project useful in your research, please consider citing:
 ```
 
 ## Acknowledgement
-This work is built upon the [LLaVA](https://github.com/haotian-liu/LLaVA), [SAM](https://github.com/facebookresearch/segment-anything), [LISA](https://github.com/dvlab-research/LISA), [Chat-UniVi](https://github.com/PKU-YuanGroup/Chat-UniVi), [MeViS](https://github.com/henghuiding/MeViS) a
+This work is built upon the [LLaVA](https://github.com/haotian-liu/LLaVA), [SAM](https://github.com/facebookresearch/segment-anything), [LISA](https://github.com/dvlab-research/LISA), [Chat-UniVi](https://github.com/PKU-YuanGroup/Chat-UniVi), [MeViS](https://github.com/henghuiding/MeViS) and [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID).
+
