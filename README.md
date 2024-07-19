@@ -10,7 +10,7 @@
 <img src="assert/architecture.png" style="width:100%;">
 </div>
 
-## Performance
+## 🚀 Performance
 
 <div style="text-align: justify;">
   VISA demonstrates remarkable proficiency in handling complex segmentation tasks that require: (a) reasoning based on world knowledge; (b) inference of future events; and (c) a comprehensive understanding of video content.
@@ -20,13 +20,13 @@
 <img src="assert/performance.png" style="width:50%;">
 </div>
 
-## Installation
+## 🛠️ Installation
 ```shell
 pip install -r requirements.txt
 pip install flash-attn --no-build-isolation
 ```
 
-## Training and Validation
+## 🦄 Training and Validation
 
 ### 1. Training Data Preparation
 
@@ -125,7 +125,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
       --val_dataset "revos_valid" \
       --eval_only 
     ```
-2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video (You can directly download the results of our run from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:u:/g/personal/yancl9918_mails_jlu_edu_cn/ETmoJF2i8ZZBsgIwdELiL8gBfptZZoPWjx6Y0eH6Myr3sw?e=mTt6rO) or [BaiduPan](https://pan.baidu.com/s/1YWs6NLPvANfhgUBHKQwnBg?pwd=visa).)
+2. Using [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID) to generate target frame for each video (you can directly download the results of our run from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:u:/g/personal/yancl9918_mails_jlu_edu_cn/ETmoJF2i8ZZBsgIwdELiL8gBfptZZoPWjx6Y0eH6Myr3sw?e=mTt6rO) or [BaiduPan](https://pan.baidu.com/s/1YWs6NLPvANfhgUBHKQwnBg?pwd=visa))
    - Run http_server_mp.py to build the API server for LLaMA-VID [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
       ```shell
       python utils_llamavid/llamavid_server.py \
@@ -145,9 +145,15 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
     cd tools
     python eval_revos.py /PATH/TO/FINAL_ANNOTATION [ARGS]
     ```
-    
 
-## Cite
+<details open>
+<summary> <strong>📑 Todo list</strong> </summary>
+- [x] Release code with `Text-guided Frame Sampler`'s Local Sampling
+- [ ] Release VISA model weights
+- [ ] Release code with `Text-guided Frame Sampler`'s Global-Local Sampling
+</details>
+
+## ⭐ Cite
 
 If you find this project useful in your research, please consider citing:
 
@@ -160,6 +166,6 @@ If you find this project useful in your research, please consider citing:
 }
 ```
 
-## Acknowledgement
+## 🎖️ Acknowledgement
 This work is built upon the [LLaVA](https://github.com/haotian-liu/LLaVA), [SAM](https://github.com/facebookresearch/segment-anything), [LISA](https://github.com/dvlab-research/LISA), [Chat-UniVi](https://github.com/PKU-YuanGroup/Chat-UniVi), [MeViS](https://github.com/henghuiding/MeViS) and [LLaMA-VID](https://github.com/dvlab-research/LLaMA-VID).
 
