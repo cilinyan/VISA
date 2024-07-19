@@ -119,7 +119,7 @@ def main():
     parser.add_argument("--xmem_weight",     type=str, help='/PATH/TO/XMEM_WEIGHT')
     args = parser.parse_args()
 
-    # prepare(args)
+    prepare(args)
     inference(args)
 
     print('Done.')
