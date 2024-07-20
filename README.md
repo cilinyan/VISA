@@ -32,6 +32,17 @@ pip install flash-attn --no-build-isolation
 
 Before training, please download the datasets, and then configure the path in [dataset_config.py](utils/dataset_config.py).
 
+<details open>
+<summary> <strong>a. LISA's Dataset</strong> </summary>
+  
+- [x] Release code with `Text-guided Frame Sampler`'s Local Sampling
+
+- [ ] Release VISA model weights
+
+- [ ] Release code with `Text-guided Frame Sampler`'s Global-Local Sampling
+
+</details>
+
 #### (a) LISA's Dataset
 
 Follow [LISA](https://github.com/dvlab-research/LISA/tree/main) to prepare LISA's datasets. The dataset folder should be stored in the `$LISA_ROOT` folder.
