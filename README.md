@@ -150,16 +150,16 @@ deepspeed --master_port=24999 train_ds.py \
 <details open>
 <summary> <strong>2. Using <a href="https://github.com/dvlab-research/LLaMA-VID">LLaMA-VID</a> to generate target frame for each video</a></strong> </summary>
 
-> you can directly download the results of our run from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:u:/g/personal/yancl9918_mails_jlu_edu_cn/ETmoJF2i8ZZBsgIwdELiL8gBfptZZoPWjx6Y0eH6Myr3sw?e=mTt6rO) or [BaiduPan](https://pan.baidu.com/s/1YWs6NLPvANfhgUBHKQwnBg?pwd=visa)
+> You can directly download the results of our run from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:u:/g/personal/yancl9918_mails_jlu_edu_cn/ETmoJF2i8ZZBsgIwdELiL8gBfptZZoPWjx6Y0eH6Myr3sw?e=mTt6rO) or [BaiduPan](https://pan.baidu.com/s/1YWs6NLPvANfhgUBHKQwnBg?pwd=visa)
 
-- Run http_server_mp.py to build the API server for LLaMA-VID [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
+- Run http_server_mp.py to build the API server for LLaMA-VID [`[running demo]`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
    ```shell
    python utils_llamavid/llamavid_server.py \
        --vision_tower /PATH/TO/eva_vit_g.pth \
        --image_processor /PATH/TO/openai/clip-vit-large-patch14 \
        --model-path /PATH/TO/YanweiLi/llama-vid-13b-full-224-video-fps-1
    ```
-- Using the API for inference [`running demo`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63)
+- Using the API for inference [`[running demo]`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63)
   
    ```shell
    python utils_llamavid/llamavid_client.py \
