@@ -130,7 +130,7 @@ CUDA_VISIBLE_DEVICES="" python merge_lora_weights_and_save_hf_model.py \
 ### 4. Validation
 
 <details open>
-<summary> <strong>1. Using `VISA` to generate predicted mask of each video <a href="https://github.com/cilinyan/VISA/blob/main/scripts/val_7b_video.sh">[running demo]</a></strong> </summary>
+<summary> <strong>1. Using `VISA` to generate predicted mask of each video <a href="https://github.com/cilinyan/VISA/blob/main/scripts/val_7b_video.sh">[demo]</a></strong> </summary>
 
 ```shell
 deepspeed --master_port=24999 train_ds.py \
@@ -152,14 +152,14 @@ deepspeed --master_port=24999 train_ds.py \
 
 > You can directly download the results of our run from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:u:/g/personal/yancl9918_mails_jlu_edu_cn/ETmoJF2i8ZZBsgIwdELiL8gBfptZZoPWjx6Y0eH6Myr3sw?e=mTt6rO) or [BaiduPan](https://pan.baidu.com/s/1YWs6NLPvANfhgUBHKQwnBg?pwd=visa)
 
-- Run [http_server_mp.py](https://github.com/cilinyan/VISA/blob/main/utils_llamavid/llamavid_server.py) to build the API server for LLaMA-VID [`[running demo]`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
+- Run [http_server_mp.py](https://github.com/cilinyan/VISA/blob/main/utils_llamavid/llamavid_server.py) to build the API server for LLaMA-VID [`[demo]`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_server.py#L215-L220)
    ```shell
    python utils_llamavid/llamavid_server.py \
        --vision_tower /PATH/TO/eva_vit_g.pth \
        --image_processor /PATH/TO/openai/clip-vit-large-patch14 \
        --model-path /PATH/TO/YanweiLi/llama-vid-13b-full-224-video-fps-1
    ```
-- Using the API for inference [`[running demo]`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63)
+- Using the API for inference [`[demo]`](https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/utils_llamavid/llamavid_client.py#L58-L63)
   
    ```shell
    python utils_llamavid/llamavid_client.py \
@@ -170,12 +170,12 @@ deepspeed --master_port=24999 train_ds.py \
 </details>
 
 <details open>
-<summary> <strong>3. Using <a href="https://github.com/cilinyan/VISA/blob/main/XMem/tracking.py">XMem</a> for mask propagation <a href="https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/XMem/tracking.py#L103-L110">[running demo]</a> </strong> </summary>
+<summary> <strong>3. Using <a href="https://github.com/cilinyan/VISA/blob/main/XMem/tracking.py">XMem</a> for mask propagation <a href="https://github.com/cilinyan/VISA/blob/c53d2cd31407eab583c5eb04f84fd95b4694f2ce/XMem/tracking.py#L103-L110">[demo]</a> </strong> </summary>
 </details>
 
 <details open>
 
-<summary> <strong>4. Evaluate ReVOS's performance <a href="https://github.com/cilinyan/VISA/blob/main/tools/eval_revos.py#L74-L81">[running demo]</a> </strong> </summary>
+<summary> <strong>4. Evaluate ReVOS's performance <a href="https://github.com/cilinyan/VISA/blob/main/tools/eval_revos.py#L74-L81">[demo]</a> </strong> </summary>
 
 ```shell
 cd tools
