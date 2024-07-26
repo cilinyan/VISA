@@ -72,8 +72,9 @@ ChatUniVi_ROOT
 
 1. Reasoning Video Segmentation Datasets: [ReVOS](https://github.com/cilinyan/ReVOS-api).
 2. Referring Video Segmentation Datasets: [Ref-Youtube-VOS](https://github.com/wjn922/ReferFormer/blob/main/docs/data.md), [Ref-DAVIS17](https://github.com/wjn922/ReferFormer/blob/main/docs/data.md), [MeViS](https://github.com/henghuiding/MeViS).
+   - Ref-Youtube-VOS: Download `mask_dict.pkl` from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:f:/g/personal/yancl9918_mails_jlu_edu_cn/EqR9g3yWG5pPtVoil0EfsbgBJhCZ7YwaRG9w9GsYy1_N5g?e=JLaJfc) or [BaiduPan](https://pan.baidu.com/s/1mbJaDDy0UTlA7sysp0zypg?pwd=visa).
+   - Ref-DAVIS17: Download `mask_dict.pkl` from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:f:/g/personal/yancl9918_mails_jlu_edu_cn/Eq8bmGqNcYxGhQ1bioN65q4B_gPxIabpJUjGaV5uqcaq3w?e=2J6Ldp) or [BaiduPan](https://pan.baidu.com/s/1Gg5qPvxRZMKDp0JrVRJ75w?pwd=visa).
 3. Open-Vocabulary Video Instance Segmentation Dataset: [LV-VIS](https://github.com/haochenheheda/LVVIS/tree/main).
-  
    Download `mask_dict.json` and `meta_expressions.json` from [OneDrive](https://mailsjlueducn-my.sharepoint.com/:f:/g/personal/yancl9918_mails_jlu_edu_cn/EttXAjMV8yFJhHMQwX3mIw0BP7dymKV-cuw4uAotDaAwYw?e=j6Y44X) or [BaiduPan](https://pan.baidu.com/s/1LOWPnuxXF_LXGSL7osRptA?pwd=visa). Then, put the annotations files in the `$RVOS_ROOT/lvvis/train` directory as follows.
 ```
 RVOS_ROOT
@@ -89,7 +90,24 @@ RVOS_ROOT
 |       ├── mask_dict.json
 |       └── meta_expressions.json
 ├── Ref-Youtube-VOS
+│   ├── meta_expressions
+|   |   ├── train/meta_expressions.json
+|   |   └── valid/meta_expressions.json
+│   ├── train
+|   |   ├── JPEGImages
+|   |   └── mask_dict.pkl
+│   └── valid
+|       └── JPEGImages
 ├── davis17
+│   ├── meta_expressions
+|   |   ├── train/meta_expressions.json
+|   |   └── valid/meta_expressions.json
+│   ├── train
+|   |   ├── JPEGImages
+|   |   └── mask_dict.pkl
+│   └── valid
+|       ├── JPEGImages
+|       └── mask_dict.pkl
 └── mevis
 ```
 
