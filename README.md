@@ -206,7 +206,7 @@ python eval_revos.py /PATH/TO/FINAL_ANNOTATION [ARGS]
   
 - [x] Release code with `Text-guided Frame Sampler`'s Local Sampling
 
-- [ ] Release VISA model weights
+- [ ] Release VISA model weights [issue #5](https://github.com/cilinyan/VISA/issues/5)
 
 - [ ] Release code with `Text-guided Frame Sampler`'s Global-Local Sampling
 
